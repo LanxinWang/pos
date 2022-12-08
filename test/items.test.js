@@ -1,4 +1,4 @@
-const loadAllItems = require("../main/items");
+const loadAllItems = require("../src/items");
 describe("items", () => {
   it("should get all items' information when call loadAllItems function", () => {
     const itemsInformation = [
