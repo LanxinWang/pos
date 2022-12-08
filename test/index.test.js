@@ -1,29 +1,45 @@
-const printReceipt = require("../src/index");
-describe("pos", () => {
-  it("should print correct receipt", () => {
-    const inputTags = [
-      "ITEM000001",
-      "ITEM000001",
-      "ITEM000001",
-      "ITEM000001",
-      "ITEM000001",
-      "ITEM000003-2",
-      "ITEM000005",
-      "ITEM000005",
-      "ITEM000005",
-    ];
-    const expectReceipt = `
-    ***<没钱赚商店>收据***
-    名称：雪碧，数量：5瓶，单价：3.00(元)，小计：12.00(元)
-    名称：荔枝，数量：2斤，单价：15.00(元)，小计：30.00(元)
-    名称：方便面，数量：3袋，单价：4.50(元)，小计：9.00(元)
-    ----------------------
-    总计：51.00(元)
-    节省：7.50(元)
-    **********************`;
+import { printReceipt } from "../src/index";
+import { loadAllItems } from "../src/items";
+import { loadPromotions } from "../src/promotions";
 
-    const result = printReceipt(inputTags);
+const mockLoadAllItems = [
+  {
+    barcode: "ITEM000000",
+    name: "可口可乐",
+    unit: "瓶",
+    price: 2.5,
+  },
+  {
+    barcode: "ITEM000001",
+    name: "雪碧",
+    unit: "瓶",
+    price: 3.0,
+  },
+  {
+    barcode: "ITEM000002",
+    name: "苹果",
+    unit: "斤",
+    price: 5.5,
+  },
+  {
+    barcode: "ITEM000003",
+    name: "荔枝",
+    unit: "斤",
+    price: 15.0,
+  },
+];
+const mockLoadPromotions = [
+  {
+    type: "BUY_TWO_GET_ONE_FREE",
+    barcodes: ["ITEM000000", "ITEM000001"],
+  },
+];
 
-    expect(result).toEqual(expectReceipt);
-  });
+beforeEach(() => {
+  jest.mock("../src/items", () => ({
+    loadAllItems: jest.fn().mockImplementation(() => mockLoadAllItems),
+  }));
+  jest.mock("../src/promotions", () => ({
+    loadAllItems: jest.fn().mockImplementation(() => mockLoadPromotions),
+  }));
 });
