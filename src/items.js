@@ -37,6 +37,4 @@ const itemsInformation = [
   },
 ];
 
-const loadAllItems = () => itemsInformation;
-
-module.exports = loadAllItems;
+export const loadAllItems = () => itemsInformation;

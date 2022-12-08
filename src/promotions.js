@@ -5,6 +5,4 @@ const promotionsInformation = [
   },
 ];
 
-const loadPromotions = () => promotionsInformation;
-
-module.exports = loadPromotions;
+export const loadPromotions = () => promotionsInformation;

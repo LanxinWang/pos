@@ -1,4 +1,4 @@
-const loadPromotions = require("../src/promotions");
+import { loadPromotions } from "../src/promotions";
 
 describe("promotions", () => {
   it("should get promotions information when call loadPromotions function", () => {
