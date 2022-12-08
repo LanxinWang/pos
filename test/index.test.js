@@ -43,7 +43,7 @@ beforeEach(() => {
     loadPromotions: jest.fn().mockImplementation(() => mockLoadPromotions),
   }));
 });
-describe("pos", () => {
+describe("pos print receipts when all items bought with no BUY_TWO_FREE_ONE promotions", () => {
   it("should print correct receipt when buy 1 item with no BUY_TWO_FREE_ONE promotions", () => {
     const inputTags = ["ITEM000000"];
     const expectReceipt = `
