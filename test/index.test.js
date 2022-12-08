@@ -73,4 +73,20 @@ describe("pos", () => {
 
     expect(result).toEqual(expectReceipt);
   });
+
+  it("should print correct receipt when buy 1 each of 2 different items with no BUY_TWO_FREE_ONE promotions", () => {
+    const inputTags = ["ITEM000000", "ITEM000001"];
+    const expectReceipt = `
+    ***<没钱赚商店>收据***
+    名称：可口可乐，数量：1瓶，单价：2.50(元)，小计：2.50(元)
+    名称：雪碧，数量：1瓶，单价：3.00(元)，小计：3.00(元)
+    ----------------------
+    总计：5.50(元)
+    节省：0.00(元)
+    **********************`;
+
+    const result = printReceipt(inputTags);
+
+    expect(result).toEqual(expectReceipt);
+  });
 });
