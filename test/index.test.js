@@ -40,6 +40,22 @@ beforeEach(() => {
     loadAllItems: jest.fn().mockImplementation(() => mockLoadAllItems),
   }));
   jest.mock("../src/promotions", () => ({
-    loadAllItems: jest.fn().mockImplementation(() => mockLoadPromotions),
+    loadPromotions: jest.fn().mockImplementation(() => mockLoadPromotions),
   }));
+});
+describe("pos", () => {
+  it("should print correct receipt when buy 1 item with no BUY_TWO_FREE_ONE promotions", () => {
+    const inputTags = ["ITEM000000"];
+    const expectReceipt = `
+    ***<没钱赚商店>收据***
+    名称：可口可乐，数量：1瓶，单价：2.50(元)，小计：2.50(元)
+    ----------------------
+    总计：2.50(元)
+    节省：0.00(元)
+    **********************`;
+
+    const result = printReceipt(inputTags);
+
+    expect(result).toEqual(expectReceipt);
+  });
 });
