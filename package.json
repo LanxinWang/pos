@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node main/main.js"
+    "start": "node main/main.js",
+    "test": "jest --verbose"
   },
   "author": "",
   "license": "ISC",
