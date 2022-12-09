@@ -5,6 +5,7 @@ export const printReceipt = (inputTags, allItems, promotions) => {
   const totalPrice = calculateTotalPriceFor(purchasedItems);
   const totalCount = calculateTotalCountFor(purchasedItems);
   const printPurchasedItemsDetails = printPurchasedItemsFormat(purchasedItems);
+
   return `
     ***<没钱赚商店>收据***
     ${printPurchasedItemsDetails}
@@ -48,6 +49,7 @@ const getItemsBy = (inputTags, allItems, promotions) => {
       subtotal: 0,
     });
   }
+
   const result = purchasedItems.map((item) => {
     item.subtotal = calculateAKindOfItemSubtotalBy(
       item.promotionType,
@@ -56,15 +58,15 @@ const getItemsBy = (inputTags, allItems, promotions) => {
     );
     return item;
   });
+
   return result;
 };
 
-const calculateTotalPriceFor = (purchasedItems) => {
-  return purchasedItems.reduce(
+const calculateTotalPriceFor = (purchasedItems) =>
+  purchasedItems.reduce(
     (totalPrice, currentItem) => totalPrice + currentItem.subtotal,
     0
   );
-};
 
 const calculateTotalCountFor = (purchasedItems) =>
   purchasedItems.reduce(
@@ -74,24 +76,18 @@ const calculateTotalCountFor = (purchasedItems) =>
     0
   );
 
-const isBuyTwoFreeOneItem = (itemPromotionType) => {
-  return itemPromotionType === "BUY_TWO_GET_ONE_FREE";
-};
+const isBuyTwoFreeOneItem = (itemPromotionType) =>
+  itemPromotionType === "BUY_TWO_GET_ONE_FREE";
 
 const calculateAKindOfItemSubtotalBy = (
   itemPromotionType,
   itemUnitPrice,
   num
-) => {
-  return (
-    calculateAItemPriceBy(itemUnitPrice, num) -
-    calculateAItemCountBy(itemPromotionType, itemUnitPrice, num)
-  );
-};
+) =>
+  calculateAItemPriceBy(itemUnitPrice, num) -
+  calculateAItemCountBy(itemPromotionType, itemUnitPrice, num);
 
-const calculateAItemPriceBy = (itemUnitPrice, num) => {
-  return itemUnitPrice * num;
-};
+const calculateAItemPriceBy = (itemUnitPrice, num) => itemUnitPrice * num;
 
 const calculateAItemCountBy = (itemPromotionType, itemUnitPrice, num) => {
   if (isBuyTwoFreeOneItem(itemPromotionType) && num >= 3) {
