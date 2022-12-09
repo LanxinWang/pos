@@ -21,7 +21,7 @@ const getPurchasedItemsBy = (inputTags, allItems, promotions) => {
   for (let i = 0; i < inputTags.length; i++) {
     const purchasedItemBarcode = inputTags[i].split("-")[0];
     const number = inputTags[i].split("-")[1] || 1;
-    const item = _.find(
+    const { name, price, unit } = _.find(
       allItems,
       (item) => item.barcode === purchasedItemBarcode
     );
@@ -36,21 +36,18 @@ const getPurchasedItemsBy = (inputTags, allItems, promotions) => {
       continue;
     }
 
-    const promotionType = _.find(promotions, (promotion) =>
-      promotion.barcodes.includes(purchasedItemBarcode)
-    )?.type;
-
     purchasedItems.push({
-      barcode: item.barcode,
-      name: item.name,
-      unitPrice: item.price,
-      unit: item.unit,
+      barcode: purchasedItemBarcode,
+      name: name,
+      unitPrice: price,
+      unit: unit,
       num: number,
       promotionType,
       subtotal: 0,
     });
   }
 
+  //calculate subtotal price
   const result = purchasedItems.map((item) => {
     item.subtotal = calculateAKindOfItemSubtotalBy(
       item.promotionType,
