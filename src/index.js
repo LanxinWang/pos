@@ -63,10 +63,7 @@ const getItemsBy = (inputTags, allItems, promotions) => {
 };
 
 const calculateTotalPriceFor = (purchasedItems) =>
-  purchasedItems.reduce(
-    (totalPrice, currentItem) => totalPrice + currentItem.subtotal,
-    0
-  );
+  purchasedItems.reduce((totalPrice, item) => totalPrice + item.subtotal, 0);
 
 const calculateTotalCountFor = (purchasedItems) =>
   purchasedItems.reduce(
@@ -79,19 +76,15 @@ const calculateTotalCountFor = (purchasedItems) =>
 const isBuyTwoFreeOneItem = (itemPromotionType) =>
   itemPromotionType === "BUY_TWO_GET_ONE_FREE";
 
-const calculateAKindOfItemSubtotalBy = (
-  itemPromotionType,
-  itemUnitPrice,
-  num
-) =>
-  calculateAItemPriceBy(itemUnitPrice, num) -
-  calculateAItemCountBy(itemPromotionType, itemUnitPrice, num);
+const calculateAKindOfItemSubtotalBy = (promotionType, unitPrice, num) =>
+  calculateAItemPriceBy(unitPrice, num) -
+  calculateAItemCountBy(promotionType, unitPrice, num);
 
-const calculateAItemPriceBy = (itemUnitPrice, num) => itemUnitPrice * num;
+const calculateAItemPriceBy = (unitPrice, num) => unitPrice * num;
 
-const calculateAItemCountBy = (itemPromotionType, itemUnitPrice, num) => {
-  if (isBuyTwoFreeOneItem(itemPromotionType) && num >= 3) {
-    return (num / 3) * itemUnitPrice;
+const calculateAItemCountBy = (promotionType, unitPrice, num) => {
+  if (isBuyTwoFreeOneItem(promotionType) && num >= 3) {
+    return (num / 3) * unitPrice;
   }
   return 0;
 };
