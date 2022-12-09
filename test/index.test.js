@@ -193,3 +193,32 @@ describe("pos when input tags with BUY_TWO_FREE_ONE promotions", () => {
     expect(result).toEqual(expectReceipt);
   });
 });
+
+describe("pos when input all kinds tags", () => {
+  it("should print correct receipt when input all kinds of tags", () => {
+    const inputTags = [
+      "ITEM000000",
+      "ITEM000000",
+      "ITEM000000",
+      "ITEM000001-1",
+      "ITEM000002",
+      "ITEM000002",
+      "ITEM000002",
+      "ITEM000001-3",
+    ];
+    const expectReceipt = `
+    ***<没钱赚商店>收据***
+    名称：可口可乐，数量：3瓶，单价：2.50(元)，小计：7.50(元)
+    名称：苹果，数量：1斤，单价：5.50(元)，小计：5.50(元)
+    名称：雪碧，数量：3瓶，单价：3.00(元)，小计：6.00(元)
+    名称：荔枝，数量：3斤，单价：15.00(元)，小计：30.00(元)
+    ----------------------
+    总计：49.00(元)
+    节省：18.00(元)
+    **********************`;
+
+    const result = printReceipt(inputTags);
+
+    expect(result).toEqual(expectReceipt);
+  });
+});
