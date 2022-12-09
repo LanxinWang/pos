@@ -4,7 +4,8 @@ export const printReceipt = (inputTags, allItems, promotions) => {
   const purchasedItems = getItemsBy(inputTags, allItems, promotions);
   const totalPrice = calculateTotalPriceFor(purchasedItems);
   const totalCount = calculateTotalCountFor(purchasedItems);
-  const printPurchasedItemsDetails = printPurchasedItemsFormat(purchasedItems);
+  const printPurchasedItemsDetails =
+    printPurchasedItemsDetailsFormat(purchasedItems);
 
   return `
     ***<没钱赚商店>收据***
@@ -89,7 +90,7 @@ const calculateAItemCountBy = (promotionType, unitPrice, num) => {
   return 0;
 };
 
-const printPurchasedItemsFormat = (purchasedItems) =>
+const printPurchasedItemsDetailsFormat = (purchasedItems) =>
   purchasedItems
     .map(
       (boughtItem) =>
