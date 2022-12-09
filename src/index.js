@@ -50,8 +50,7 @@ const getPurchasedItemsBy = (inputTags, allItems, promotions) => {
     });
   }
 
-  //calculate subtotal price
-  const result = purchasedItems.map((item) => {
+  return purchasedItems.map((item) => {
     item.subtotal = calculateAKindOfItemSubtotalBy(
       item.promotionType,
       item.unitPrice,
@@ -59,8 +58,6 @@ const getPurchasedItemsBy = (inputTags, allItems, promotions) => {
     );
     return item;
   });
-
-  return result;
 };
 
 const calculateTotalPriceFor = (purchasedItems) =>
