@@ -29,13 +29,13 @@ const getPurchasedItemsBy = (inputTags, allItems, promotions) => {
       promotion.barcodes.includes(purchasedItemBarcode)
     )?.type;
 
-    const index = _.findIndex(
+    const itemIndex = itemIndexInPurchasedItems(
       purchasedItems,
-      (purchasedItem) => purchasedItem.barcode === purchasedItemBarcode
+      purchasedItemBarcode
     );
 
-    if (index >= 0) {
-      purchasedItems[index].num += number;
+    if (itemIndex >= 0) {
+      purchasedItems[itemIndex].num += number;
       continue;
     }
 
@@ -59,6 +59,12 @@ const getPurchasedItemsBy = (inputTags, allItems, promotions) => {
     return item;
   });
 };
+
+const itemIndexInPurchasedItems = (purchasedItems, purchasedItemBarcode) =>
+  _.findIndex(
+    purchasedItems,
+    (purchasedItem) => purchasedItem.barcode === purchasedItemBarcode
+  );
 
 const calculateTotalPriceFor = (purchasedItems) =>
   purchasedItems.reduce((totalPrice, item) => totalPrice + item.subtotal, 0);
