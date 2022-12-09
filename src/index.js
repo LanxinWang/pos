@@ -25,6 +25,9 @@ const getPurchasedItemsBy = (inputTags, allItems, promotions) => {
       allItems,
       (item) => item.barcode === purchasedItemBarcode
     );
+    const promotionType = _.find(promotions, (promotion) =>
+      promotion.barcodes.includes(purchasedItemBarcode)
+    )?.type;
 
     const index = _.findIndex(
       purchasedItems,
