@@ -1,7 +1,7 @@
 import _ from "lodash";
 
 export const printReceipt = (inputTags, allItems, promotions) => {
-  const purchasedItems = getItemsBy(inputTags, allItems, promotions);
+  const purchasedItems = getPurchasedItemsBy(inputTags, allItems, promotions);
   const totalPrice = calculateTotalPriceFor(purchasedItems);
   const totalCount = calculateTotalCountFor(purchasedItems);
   const printPurchasedItemsDetails =
@@ -16,7 +16,7 @@ export const printReceipt = (inputTags, allItems, promotions) => {
     **********************`;
 };
 
-const getItemsBy = (inputTags, allItems, promotions) => {
+const getPurchasedItemsBy = (inputTags, allItems, promotions) => {
   let purchasedItems = [];
   for (let i = 0; i < inputTags.length; i++) {
     const purchasedItemBarcode = inputTags[i].split("-")[0];
