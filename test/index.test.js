@@ -1,6 +1,4 @@
 import { printReceipt } from "../src/index";
-import { loadAllItems } from "../src/items";
-import { loadPromotions } from "../src/promotions";
 
 const mockLoadAllItems = [
   {
@@ -43,8 +41,9 @@ beforeEach(() => {
     loadPromotions: jest.fn().mockImplementation(() => mockLoadPromotions),
   }));
 });
-describe("pos print receipts when all items bought with no BUY_TWO_FREE_ONE promotions", () => {
-  it("should print correct receipt when buy 1 item with no BUY_TWO_FREE_ONE promotions", () => {
+
+describe("pos when input tags with no BUY_TWO_FREE_ONE promotions", () => {
+  it("should print correct receipt when input 1 non-weigh-in tag", () => {
     const inputTags = ["ITEM000000"];
     const expectReceipt = `
     ***<没钱赚商店>收据***
@@ -59,7 +58,7 @@ describe("pos print receipts when all items bought with no BUY_TWO_FREE_ONE prom
     expect(result).toEqual(expectReceipt);
   });
 
-  it("should print correct receipt when buy 1-pound weigh-in item with no BUY_TWO_FREE_ONE promotions", () => {
+  it("should print correct receipt when input 1 one-pound weigh-in tag", () => {
     const inputTags = ["ITEM000001-1"];
     const expectReceipt = `
     ***<没钱赚商店>收据***
@@ -68,13 +67,11 @@ describe("pos print receipts when all items bought with no BUY_TWO_FREE_ONE prom
     总计：5.50(元)
     节省：0.00(元)
     **********************`;
-
     const result = printReceipt(inputTags);
-
     expect(result).toEqual(expectReceipt);
   });
 
-  it("should print correct receipt when buy 3 same items with no BUY_TWO_FREE_ONE promotions", () => {
+  it("should print correct receipt when input 3 same non-weigh-in tags", () => {
     const inputTags = ["ITEM000000", "ITEM000000", "ITEM000000"];
     const expectReceipt = `
     ***<没钱赚商店>收据***
@@ -89,7 +86,7 @@ describe("pos print receipts when all items bought with no BUY_TWO_FREE_ONE prom
     expect(result).toEqual(expectReceipt);
   });
 
-  it("should print correct receipt when buy 3-pounds same weigh-in items with no BUY_TWO_FREE_ONE promotions", () => {
+  it("should print correct receipt when input 1 three-pounds weigh-in tags", () => {
     const inputTags = ["ITEM000001-3"];
     const expectReceipt = `
     ***<没钱赚商店>收据***
@@ -104,14 +101,14 @@ describe("pos print receipts when all items bought with no BUY_TWO_FREE_ONE prom
     expect(result).toEqual(expectReceipt);
   });
 
-  it("should print correct receipt when buy 1 item and 2-pound item with no BUY_TWO_FREE_ONE promotions", () => {
-    const inputTags = ["ITEM000000", "ITEM000001-2"];
+  it("should print correct receipt when input 2 same non-weigh-in tags and 1 one-pounds weigh-in tag", () => {
+    const inputTags = ["ITEM000000", "ITEM000000", "ITEM000001-1"];
     const expectReceipt = `
     ***<没钱赚商店>收据***
-    名称：可口可乐，数量：1瓶，单价：2.50(元)，小计：2.50(元)
-    名称：苹果，数量：2斤，单价：5.50(元)，小计：11.00(元)
+    名称：可口可乐，数量：2瓶，单价：2.50(元)，小计：5.00(元)
+    名称：苹果，数量：1斤，单价：5.50(元)，小计：5.50(元)
     ----------------------
-    总计：13.50(元)
+    总计：10.50(元)
     节省：0.00(元)
     **********************`;
 
@@ -120,3 +117,5 @@ describe("pos print receipts when all items bought with no BUY_TWO_FREE_ONE prom
     expect(result).toEqual(expectReceipt);
   });
 });
+
+describe("", () => {});
