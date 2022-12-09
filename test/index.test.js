@@ -118,4 +118,78 @@ describe("pos when input tags with no BUY_TWO_FREE_ONE promotions", () => {
   });
 });
 
-describe("", () => {});
+describe("pos when input tags with BUY_TWO_FREE_ONE promotions", () => {
+  it("should print correct receipt when input 1 non-weigh-in tag", () => {
+    const inputTags = ["ITEM000002"];
+    const expectReceipt = `
+    ***<没钱赚商店>收据***
+    名称：雪碧，数量：1瓶，单价：3.00(元)，小计：3.00(元)
+    ----------------------
+    总计：3.00(元)
+    节省：0.00(元)
+    **********************`;
+
+    const result = printReceipt(inputTags);
+
+    expect(result).toEqual(expectReceipt);
+  });
+
+  it("should print correct receipt when input 1 one-pound weigh-in tag", () => {
+    const inputTags = ["ITEM000003-1"];
+    const expectReceipt = `
+    ***<没钱赚商店>收据***
+    名称：荔枝，数量：1斤，单价：15.00(元)，小计：15.00(元)
+    ----------------------
+    总计：15.00(元)
+    节省：0.00(元)
+    **********************`;
+    const result = printReceipt(inputTags);
+    expect(result).toEqual(expectReceipt);
+  });
+
+  it("should print correct receipt when input 3 same non-weigh-in tags", () => {
+    const inputTags = ["ITEM000002", "ITEM000002", "ITEM000002"];
+    const expectReceipt = `
+    ***<没钱赚商店>收据***
+    名称：雪碧，数量：3瓶，单价：3.00(元)，小计：6.00(元)
+    ----------------------
+    总计：6.00(元)
+    节省：3.00(元)
+    **********************`;
+
+    const result = printReceipt(inputTags);
+
+    expect(result).toEqual(expectReceipt);
+  });
+
+  it("should print correct receipt when input 1 three-pounds weigh-in tags", () => {
+    const inputTags = ["ITEM000003-3"];
+    const expectReceipt = `
+    ***<没钱赚商店>收据***
+    名称：荔枝，数量：3斤，单价：15.00(元)，小计：30.00(元)
+    ----------------------
+    总计：30.00(元)
+    节省：0.00(元)
+    **********************`;
+
+    const result = printReceipt(inputTags);
+
+    expect(result).toEqual(expectReceipt);
+  });
+
+  it("should print correct receipt when input 2 same non-weigh-in tags and 1 one-pounds weigh-in tag", () => {
+    const inputTags = ["ITEM000002", "ITEM000002", "ITEM000001-1"];
+    const expectReceipt = `
+    ***<没钱赚商店>收据***
+    名称：雪碧，数量：2瓶，单价：3.00(元)，小计：6.00(元)
+    名称：荔枝，数量：1斤，单价：15.00(元)，小计：15.00(元)
+    ----------------------
+    总计：21.00(元)
+    节省：0.00(元)
+    **********************`;
+
+    const result = printReceipt(inputTags);
+
+    expect(result).toEqual(expectReceipt);
+  });
+});
