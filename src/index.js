@@ -41,9 +41,9 @@ const getPurchasedItemsBy = (inputTags, allItems, promotions) => {
 
     purchasedItems.push({
       barcode: purchasedItemBarcode,
-      name: name,
+      name,
       unitPrice: price,
-      unit: unit,
+      unit,
       num: number,
       promotionType,
       subtotal: 0,
