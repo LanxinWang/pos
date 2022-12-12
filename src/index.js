@@ -3,11 +3,7 @@ import { loadAllItems } from "./items";
 import { loadPromotions } from "./promotions";
 
 export const printReceipt = (inputTags) => {
-  const purchasedItems = getPurchasedItemsBy(
-    inputTags,
-    loadAllItems(),
-    loadPromotions()
-  );
+  const purchasedItems = getPurchasedItems(inputTags);
   const totalPrice = calculateTotalPriceFor(purchasedItems);
   const totalDiscount = calculateDiscountFor(purchasedItems);
   const printPurchasedItemsDetails =
@@ -22,55 +18,42 @@ export const printReceipt = (inputTags) => {
     **********************`;
 };
 
-const getPurchasedItemsBy = (inputTags, allItems, promotions) => {
-  let purchasedItems = [];
-  for (let i = 0; i < inputTags.length; i++) {
-    const purchasedItemBarcode = inputTags[i].split("-")[0];
-    const number = inputTags[i].split("-")[1] || 1;
-    const { name, price, unit } = _.find(
-      allItems,
-      (item) => item.barcode === purchasedItemBarcode
-    );
-    const promotionType = _.find(promotions, (promotion) =>
-      promotion.barcodes.includes(purchasedItemBarcode)
-    )?.type;
+const getPurchasedItems = (inputTags) => {
+  const allItems = loadAllItems();
+  const promotions = loadPromotions();
+  const uniqInputTags = _.uniq(inputTags);
 
-    const itemIndex = itemIndexInPurchasedItems(
-      purchasedItems,
-      purchasedItemBarcode
-    );
-
-    if (itemIndex >= 0) {
-      purchasedItems[itemIndex].num += number;
-      continue;
-    }
-
-    purchasedItems.push({
-      barcode: purchasedItemBarcode,
+  const purchasedItems = uniqInputTags.map((uniqInputTag) => {
+    const barcode = uniqInputTag.split("-")[0];
+    const count =
+      uniqInputTag.split("-")[1] ||
+      inputTags.filter((tag) => tag === uniqInputTag).length;
+    const {
       name,
-      unitPrice: price,
+      price: unitPrice,
       unit,
-      num: number,
+    } = _.find(allItems, (item) => item.barcode === barcode);
+    const promotionType = _.find(promotions, (promotion) =>
+      promotion.barcodes.includes(barcode)
+    )?.type;
+    const subtotal = calculateAKindOfItemSubtotalBy(
       promotionType,
-      subtotal: 0,
-    });
-  }
-
-  return purchasedItems.map((item) => {
-    item.subtotal = calculateAKindOfItemSubtotalBy(
-      item.promotionType,
-      item.unitPrice,
-      item.num
+      unitPrice,
+      count
     );
-    return item;
+    return {
+      barcode,
+      name,
+      unitPrice,
+      unit,
+      count,
+      promotionType,
+      subtotal,
+    };
   });
-};
 
-const itemIndexInPurchasedItems = (purchasedItems, purchasedItemBarcode) =>
-  _.findIndex(
-    purchasedItems,
-    (purchasedItem) => purchasedItem.barcode === purchasedItemBarcode
-  );
+  return purchasedItems;
+};
 
 const calculateTotalPriceFor = (purchasedItems) =>
   purchasedItems.reduce((totalPrice, item) => totalPrice + item.subtotal, 0);
@@ -79,27 +62,27 @@ const calculateDiscountFor = (purchasedItems) =>
   purchasedItems.reduce(
     (totalCount, item) =>
       totalCount +
-      calculateAItemDiscountBy(item.promotionType, item.unitPrice, item.num),
+      calculateAItemDiscountBy(item.promotionType, item.unitPrice, item.count),
     0
   );
 
 const isBuyTwoFreeOneItem = (itemPromotionType) =>
   itemPromotionType === "BUY_TWO_GET_ONE_FREE";
 
-const calculateAKindOfItemSubtotalBy = (promotionType, unitPrice, num) =>
-  calculateAItemPriceBy(unitPrice, num) -
-  calculateAItemDiscountBy(promotionType, unitPrice, num);
+const calculateAKindOfItemSubtotalBy = (promotionType, unitPrice, count) =>
+  calculateAItemPriceBy(unitPrice, count) -
+  calculateAItemDiscountBy(promotionType, unitPrice, count);
 
-const calculateAItemPriceBy = (unitPrice, num) => unitPrice * num;
+const calculateAItemPriceBy = (unitPrice, count) => unitPrice * count;
 
-const calculateAItemDiscountBy = (promotionType, unitPrice, num) =>
-  isBuyTwoFreeOneItem(promotionType) ? Math.floor(num / 3) * unitPrice : 0;
+const calculateAItemDiscountBy = (promotionType, unitPrice, count) =>
+  isBuyTwoFreeOneItem(promotionType) ? Math.floor(count / 3) * unitPrice : 0;
 
 const printPurchasedItemsDetailsFormat = (purchasedItems) =>
   purchasedItems
     .map(
       (boughtItem) =>
-        `名称：${boughtItem.name}，数量：${boughtItem.num}${
+        `名称：${boughtItem.name}，数量：${boughtItem.count}${
           boughtItem.unit
         }，单价：${boughtItem.unitPrice.toFixed(
           2
