@@ -62,9 +62,6 @@ const calculateDiscount = (purchasedItems) =>
     0
   );
 
-const isBuyTwoFreeOneItem = (itemPromotionType) =>
-  itemPromotionType === "BUY_TWO_GET_ONE_FREE";
-
 const calculateItemSubtotal = (promotionType, unitPrice, count) =>
   calculateAItemPrice(unitPrice, count) -
   calculateAItemDiscount(promotionType, unitPrice, count);
@@ -72,7 +69,9 @@ const calculateItemSubtotal = (promotionType, unitPrice, count) =>
 const calculateAItemPrice = (unitPrice, count) => unitPrice * count;
 
 const calculateAItemDiscount = (promotionType, unitPrice, count) =>
-  isBuyTwoFreeOneItem(promotionType) ? Math.floor(count / 3) * unitPrice : 0;
+  itemPromotionType === "BUY_TWO_GET_ONE_FREE"
+    ? Math.floor(count / 3) * unitPrice
+    : 0;
 
 const printPurchasedItemsDetailsFormat = (purchasedItems) =>
   purchasedItems
