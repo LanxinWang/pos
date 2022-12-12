@@ -2,7 +2,7 @@ import { loadAllItems } from "../src/items";
 
 describe("items", () => {
   it("should get all items' information when call loadAllItems function", () => {
-    const itemsInformation = [
+    const items = [
       {
         barcode: "ITEM000000",
         name: "可口可乐",
@@ -41,6 +41,6 @@ describe("items", () => {
       },
     ];
     const result = loadAllItems();
-    expect(result).toEqual(itemsInformation);
+    expect(result).toEqual(items);
   });
 });
