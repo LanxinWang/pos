@@ -92,13 +92,8 @@ const calculateAKindOfItemSubtotalBy = (promotionType, unitPrice, num) =>
 
 const calculateAItemPriceBy = (unitPrice, num) => unitPrice * num;
 
-const calculateAItemDiscountBy = (promotionType, unitPrice, num) => {
-  if (isBuyTwoFreeOneItem(promotionType) && num >= 3) {
-    return (num / 3) * unitPrice;
-  }
-  return 0;
-  // return isBuyTwoFreeOneItem(promotionType) ? (num / 3) * unitPrice : 0;
-};
+const calculateAItemDiscountBy = (promotionType, unitPrice, num) =>
+  isBuyTwoFreeOneItem(promotionType) ? Math.floor(num / 3) * unitPrice : 0;
 
 const printPurchasedItemsDetailsFormat = (purchasedItems) =>
   purchasedItems
