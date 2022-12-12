@@ -1,9 +1,15 @@
 import _ from "lodash";
+import { loadAllItems } from "./items";
+import { loadPromotions } from "./promotions";
 
-export const printReceipt = (inputTags, allItems, promotions) => {
-  const purchasedItems = getPurchasedItemsBy(inputTags, allItems, promotions);
+export const printReceipt = (inputTags) => {
+  const purchasedItems = getPurchasedItemsBy(
+    inputTags,
+    loadAllItems(),
+    loadPromotions()
+  );
   const totalPrice = calculateTotalPriceFor(purchasedItems);
-  const totalCount = calculateTotalCountFor(purchasedItems);
+  const totalDiscount = calculateDiscountFor(purchasedItems);
   const printPurchasedItemsDetails =
     printPurchasedItemsDetailsFormat(purchasedItems);
 
@@ -12,7 +18,7 @@ export const printReceipt = (inputTags, allItems, promotions) => {
     ${printPurchasedItemsDetails}
     ----------------------
     总计：${totalPrice.toFixed(2)}(元)
-    节省：${totalCount.toFixed(2)}(元)
+    节省：${totalDiscount.toFixed(2)}(元)
     **********************`;
 };
 
@@ -69,11 +75,11 @@ const itemIndexInPurchasedItems = (purchasedItems, purchasedItemBarcode) =>
 const calculateTotalPriceFor = (purchasedItems) =>
   purchasedItems.reduce((totalPrice, item) => totalPrice + item.subtotal, 0);
 
-const calculateTotalCountFor = (purchasedItems) =>
+const calculateDiscountFor = (purchasedItems) =>
   purchasedItems.reduce(
     (totalCount, item) =>
       totalCount +
-      calculateAItemCountBy(item.promotionType, item.unitPrice, item.num),
+      calculateAItemDiscountBy(item.promotionType, item.unitPrice, item.num),
     0
   );
 
@@ -82,15 +88,16 @@ const isBuyTwoFreeOneItem = (itemPromotionType) =>
 
 const calculateAKindOfItemSubtotalBy = (promotionType, unitPrice, num) =>
   calculateAItemPriceBy(unitPrice, num) -
-  calculateAItemCountBy(promotionType, unitPrice, num);
+  calculateAItemDiscountBy(promotionType, unitPrice, num);
 
 const calculateAItemPriceBy = (unitPrice, num) => unitPrice * num;
 
-const calculateAItemCountBy = (promotionType, unitPrice, num) => {
+const calculateAItemDiscountBy = (promotionType, unitPrice, num) => {
   if (isBuyTwoFreeOneItem(promotionType) && num >= 3) {
     return (num / 3) * unitPrice;
   }
   return 0;
+  // return isBuyTwoFreeOneItem(promotionType) ? (num / 3) * unitPrice : 0;
 };
 
 const printPurchasedItemsDetailsFormat = (purchasedItems) =>

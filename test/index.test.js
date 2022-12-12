@@ -1,39 +1,5 @@
 import { printReceipt } from "../src/index";
 
-const mockLoadPromotions = [
-  {
-    type: "BUY_TWO_GET_ONE_FREE",
-    barcodes: ["ITEM000002", "ITEM000003"],
-  },
-];
-
-const mockLoadAllItems = [
-  {
-    barcode: "ITEM000000",
-    name: "可口可乐",
-    unit: "瓶",
-    price: 2.5,
-  },
-  {
-    barcode: "ITEM000001",
-    name: "苹果",
-    unit: "斤",
-    price: 5.5,
-  },
-  {
-    barcode: "ITEM000002",
-    name: "雪碧",
-    unit: "瓶",
-    price: 3.0,
-  },
-  {
-    barcode: "ITEM000003",
-    name: "荔枝",
-    unit: "斤",
-    price: 15.0,
-  },
-];
-
 describe("pos when input tags with no BUY_TWO_FREE_ONE promotions", () => {
   it("should print correct receipt when input 1 non-weigh-in tag", () => {
     const inputTags = ["ITEM000000"];
@@ -45,11 +11,7 @@ describe("pos when input tags with no BUY_TWO_FREE_ONE promotions", () => {
     节省：0.00(元)
     **********************`;
 
-    const result = printReceipt(
-      inputTags,
-      mockLoadAllItems,
-      mockLoadPromotions
-    );
+    const result = printReceipt(inputTags);
 
     expect(result).toEqual(expectReceipt);
   });
@@ -63,11 +25,7 @@ describe("pos when input tags with no BUY_TWO_FREE_ONE promotions", () => {
     总计：5.50(元)
     节省：0.00(元)
     **********************`;
-    const result = printReceipt(
-      inputTags,
-      mockLoadAllItems,
-      mockLoadPromotions
-    );
+    const result = printReceipt(inputTags);
     expect(result).toEqual(expectReceipt);
   });
 
@@ -81,11 +39,7 @@ describe("pos when input tags with no BUY_TWO_FREE_ONE promotions", () => {
     节省：0.00(元)
     **********************`;
 
-    const result = printReceipt(
-      inputTags,
-      mockLoadAllItems,
-      mockLoadPromotions
-    );
+    const result = printReceipt(inputTags);
 
     expect(result).toEqual(expectReceipt);
   });
@@ -100,11 +54,7 @@ describe("pos when input tags with no BUY_TWO_FREE_ONE promotions", () => {
     节省：0.00(元)
     **********************`;
 
-    const result = printReceipt(
-      inputTags,
-      mockLoadAllItems,
-      mockLoadPromotions
-    );
+    const result = printReceipt(inputTags);
 
     expect(result).toEqual(expectReceipt);
   });
@@ -120,11 +70,7 @@ describe("pos when input tags with no BUY_TWO_FREE_ONE promotions", () => {
     节省：0.00(元)
     **********************`;
 
-    const result = printReceipt(
-      inputTags,
-      mockLoadAllItems,
-      mockLoadPromotions
-    );
+    const result = printReceipt(inputTags);
 
     expect(result).toEqual(expectReceipt);
   });
@@ -141,11 +87,7 @@ describe("pos when input tags with BUY_TWO_FREE_ONE promotions", () => {
     节省：0.00(元)
     **********************`;
 
-    const result = printReceipt(
-      inputTags,
-      mockLoadAllItems,
-      mockLoadPromotions
-    );
+    const result = printReceipt(inputTags);
 
     expect(result).toEqual(expectReceipt);
   });
@@ -159,11 +101,7 @@ describe("pos when input tags with BUY_TWO_FREE_ONE promotions", () => {
     总计：15.00(元)
     节省：0.00(元)
     **********************`;
-    const result = printReceipt(
-      inputTags,
-      mockLoadAllItems,
-      mockLoadPromotions
-    );
+    const result = printReceipt(inputTags);
     expect(result).toEqual(expectReceipt);
   });
 
@@ -177,11 +115,7 @@ describe("pos when input tags with BUY_TWO_FREE_ONE promotions", () => {
     节省：3.00(元)
     **********************`;
 
-    const result = printReceipt(
-      inputTags,
-      mockLoadAllItems,
-      mockLoadPromotions
-    );
+    const result = printReceipt(inputTags);
 
     expect(result).toEqual(expectReceipt);
   });
@@ -196,11 +130,7 @@ describe("pos when input tags with BUY_TWO_FREE_ONE promotions", () => {
     节省：15.00(元)
     **********************`;
 
-    const result = printReceipt(
-      inputTags,
-      mockLoadAllItems,
-      mockLoadPromotions
-    );
+    const result = printReceipt(inputTags);
 
     expect(result).toEqual(expectReceipt);
   });
@@ -216,11 +146,7 @@ describe("pos when input tags with BUY_TWO_FREE_ONE promotions", () => {
     节省：0.00(元)
     **********************`;
 
-    const result = printReceipt(
-      inputTags,
-      mockLoadAllItems,
-      mockLoadPromotions
-    );
+    const result = printReceipt(inputTags);
 
     expect(result).toEqual(expectReceipt);
   });
@@ -249,11 +175,7 @@ describe("pos when input all kinds tags", () => {
     节省：18.00(元)
     **********************`;
 
-    const result = printReceipt(
-      inputTags,
-      mockLoadAllItems,
-      mockLoadPromotions
-    );
+    const result = printReceipt(inputTags);
 
     expect(result).toEqual(expectReceipt);
   });
