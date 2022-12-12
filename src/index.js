@@ -36,11 +36,7 @@ const getPurchasedItems = (inputTags) => {
     const promotionType = _.find(promotions, (promotion) =>
       promotion.barcodes.includes(barcode)
     )?.type;
-    const subtotal = calculateAKindOfItemSubtotalBy(
-      promotionType,
-      unitPrice,
-      count
-    );
+    const subtotal = calculateItemSubtotal(promotionType, unitPrice, count);
     return {
       barcode,
       name,
@@ -60,22 +56,22 @@ const calculateTotalPrice = (purchasedItems) =>
 
 const calculateDiscount = (purchasedItems) =>
   purchasedItems.reduce(
-    (totalCount, item) =>
-      totalCount +
-      calculateAItemDiscountBy(item.promotionType, item.unitPrice, item.count),
+    (totalDiscount, item) =>
+      totalDiscount +
+      calculateAItemDiscount(item.promotionType, item.unitPrice, item.count),
     0
   );
 
 const isBuyTwoFreeOneItem = (itemPromotionType) =>
   itemPromotionType === "BUY_TWO_GET_ONE_FREE";
 
-const calculateAKindOfItemSubtotalBy = (promotionType, unitPrice, count) =>
-  calculateAItemPriceBy(unitPrice, count) -
-  calculateAItemDiscountBy(promotionType, unitPrice, count);
+const calculateItemSubtotal = (promotionType, unitPrice, count) =>
+  calculateAItemPrice(unitPrice, count) -
+  calculateAItemDiscount(promotionType, unitPrice, count);
 
-const calculateAItemPriceBy = (unitPrice, count) => unitPrice * count;
+const calculateAItemPrice = (unitPrice, count) => unitPrice * count;
 
-const calculateAItemDiscountBy = (promotionType, unitPrice, count) =>
+const calculateAItemDiscount = (promotionType, unitPrice, count) =>
   isBuyTwoFreeOneItem(promotionType) ? Math.floor(count / 3) * unitPrice : 0;
 
 const printPurchasedItemsDetailsFormat = (purchasedItems) =>
