@@ -1,8 +1,8 @@
-const promotionsInformation = [
+const promotions = [
   {
     type: "BUY_TWO_GET_ONE_FREE",
-    barcodes: ["ITEM000000", "ITEM000001", "ITEM000005"],
+    barcodes: ["ITEM000002", "ITEM000003"],
   },
 ];
 
-export const loadPromotions = () => promotionsInformation;
+export const loadPromotions = () => promotions;
