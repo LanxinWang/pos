@@ -1,21 +1,21 @@
-const itemsInformation = [
+const allItems = [
   {
     barcode: "ITEM000000",
     name: "可口可乐",
     unit: "瓶",
-    price: 3.0,
+    price: 2.5,
   },
   {
     barcode: "ITEM000001",
-    name: "雪碧",
-    unit: "瓶",
-    price: 3.0,
-  },
-  {
-    barcode: "ITEM000002",
     name: "苹果",
     unit: "斤",
     price: 5.5,
+  },
+  {
+    barcode: "ITEM000002",
+    name: "雪碧",
+    unit: "瓶",
+    price: 3.0,
   },
   {
     barcode: "ITEM000003",
@@ -37,4 +37,4 @@ const itemsInformation = [
   },
 ];
 
-export const loadAllItems = () => itemsInformation;
+export const loadAllItems = () => allItems;

@@ -2,24 +2,24 @@ import { loadAllItems } from "../src/items";
 
 describe("items", () => {
   it("should get all items' information when call loadAllItems function", () => {
-    const items = [
+    const allItems = [
       {
         barcode: "ITEM000000",
         name: "可口可乐",
         unit: "瓶",
-        price: 3.0,
+        price: 2.5,
       },
       {
         barcode: "ITEM000001",
-        name: "雪碧",
-        unit: "瓶",
-        price: 3.0,
-      },
-      {
-        barcode: "ITEM000002",
         name: "苹果",
         unit: "斤",
         price: 5.5,
+      },
+      {
+        barcode: "ITEM000002",
+        name: "雪碧",
+        unit: "瓶",
+        price: 3.0,
       },
       {
         barcode: "ITEM000003",
@@ -41,6 +41,6 @@ describe("items", () => {
       },
     ];
     const result = loadAllItems();
-    expect(result).toEqual(items);
+    expect(result).toEqual(allItems);
   });
 });
