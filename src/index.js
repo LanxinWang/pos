@@ -4,7 +4,7 @@ import { loadPromotions } from "./promotions";
 
 export const printReceipt = (inputTags) => {
   const purchasedItems = getPurchasedItems(inputTags);
-  const totalPrice = calculateTotalPriceFor(purchasedItems);
+  const totalPrice = calculateTotalPrice(purchasedItems);
   const totalDiscount = calculateDiscountFor(purchasedItems);
   const printPurchasedItemsDetails =
     printPurchasedItemsDetailsFormat(purchasedItems);
@@ -55,7 +55,7 @@ const getPurchasedItems = (inputTags) => {
   return purchasedItems;
 };
 
-const calculateTotalPriceFor = (purchasedItems) =>
+const calculateTotalPrice = (purchasedItems) =>
   purchasedItems.reduce((totalPrice, item) => totalPrice + item.subtotal, 0);
 
 const calculateDiscountFor = (purchasedItems) =>
