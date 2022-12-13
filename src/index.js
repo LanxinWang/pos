@@ -21,13 +21,10 @@ export const printReceipt = (inputTags) => {
 const getPurchasedItems = (inputTags) => {
   const allItems = loadAllItems();
   const promotions = loadPromotions();
-  const uniqInputTags = _.uniq(inputTags);
+  const purchasedItems = [];
+  const countMap = getItemsCount(inputTags);
 
-  const purchasedItems = uniqInputTags.map((uniqInputTag) => {
-    const barcode = uniqInputTag.split("-")[0];
-    const count =
-      uniqInputTag.split("-")[1] ||
-      inputTags.filter((tag) => tag === uniqInputTag).length;
+  countMap.forEach((count, barcode) => {
     const {
       name,
       price: unitPrice,
@@ -37,7 +34,7 @@ const getPurchasedItems = (inputTags) => {
       promotion.barcodes.includes(barcode)
     )?.type;
     const subtotal = calculateAItemSubtotal(promotionType, unitPrice, count);
-    return {
+    purchasedItems.push({
       barcode,
       name,
       unitPrice,
@@ -45,10 +42,21 @@ const getPurchasedItems = (inputTags) => {
       count,
       promotionType,
       subtotal,
-    };
+    });
   });
-
   return purchasedItems;
+};
+
+const getItemsCount = (inputTags) => {
+  const countMap = new Map();
+  for (let i = 0; i < inputTags.length; i++) {
+    const barcode = inputTags[i].split("-")[0];
+    const count = parseInt(inputTags[i].split("-")[1]) || 1;
+    countMap.has(barcode)
+      ? countMap.set(barcode, countMap.get(barcode) + count)
+      : countMap.set(barcode, count);
+  }
+  return countMap;
 };
 
 const calculateTotalPrice = (purchasedItems) =>
