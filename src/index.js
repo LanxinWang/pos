@@ -26,21 +26,15 @@ const getPurchasedItems = (inputTags) => {
   //By default, different tags of the same kind of weighing item cannot be stacked
   for (let i = 0; i < inputTags.length; i++) {
     const barcode = inputTags[i].split("-")[0];
-    let count = 0;
+    const count =
+      inputTags[i].split("-")[1] ||
+      inputTags.filter((tag) => tag === barcode).length;
 
-    if (inputTags[i].includes("-")) {
-      count = inputTags[i].split("-")[1];
-    } else {
-      if (
-        _.findIndex(
-          purchasedItems,
-          (purchasedItem) => purchasedItem.barcode === barcode
-        ) !== -1
-      ) {
-        continue;
-      }
-      count = inputTags.filter((tag) => tag === barcode).length;
-    }
+    if (
+      !isWeightingItem(inputTags[i]) &&
+      isExistInPurchasedItems(barcode, purchasedItems)
+    )
+      continue;
 
     const {
       name,
@@ -51,6 +45,7 @@ const getPurchasedItems = (inputTags) => {
       promotion.barcodes.includes(barcode)
     )?.type;
     const subtotal = calculateAItemSubtotal(promotionType, unitPrice, count);
+
     purchasedItems.push({
       barcode,
       name,
@@ -64,6 +59,11 @@ const getPurchasedItems = (inputTags) => {
 
   return purchasedItems;
 };
+
+const isWeightingItem = (tag) => tag.includes("-");
+
+const isExistInPurchasedItems = (barcode, purchasedItems) =>
+  _.find(purchasedItems, (purchasedItem) => purchasedItem.barcode === barcode);
 
 const calculateTotalPrice = (purchasedItems) =>
   purchasedItems.reduce((totalPrice, item) => totalPrice + item.subtotal, 0);
