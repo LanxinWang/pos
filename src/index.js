@@ -21,13 +21,27 @@ export const printReceipt = (inputTags) => {
 const getPurchasedItems = (inputTags) => {
   const allItems = loadAllItems();
   const promotions = loadPromotions();
-  const uniqInputTags = _.uniq(inputTags);
+  const purchasedItems = [];
 
-  const purchasedItems = uniqInputTags.map((uniqInputTag) => {
-    const barcode = uniqInputTag.split("-")[0];
-    const count =
-      uniqInputTag.split("-")[1] ||
-      inputTags.filter((tag) => tag === uniqInputTag).length;
+  //By default, different tags of the same kind of weighing item cannot be stacked
+  for (let i = 0; i < inputTags.length; i++) {
+    const barcode = inputTags[i].split("-")[0];
+    let count = 0;
+
+    if (inputTags[i].includes("-")) {
+      count = inputTags[i].split("-")[1];
+    } else {
+      if (
+        _.findIndex(
+          purchasedItems,
+          (purchasedItem) => purchasedItem.barcode === barcode
+        ) !== -1
+      ) {
+        continue;
+      }
+      count = inputTags.filter((tag) => tag === barcode).length;
+    }
+
     const {
       name,
       price: unitPrice,
@@ -37,7 +51,7 @@ const getPurchasedItems = (inputTags) => {
       promotion.barcodes.includes(barcode)
     )?.type;
     const subtotal = calculateAItemSubtotal(promotionType, unitPrice, count);
-    return {
+    purchasedItems.push({
       barcode,
       name,
       unitPrice,
@@ -45,8 +59,8 @@ const getPurchasedItems = (inputTags) => {
       count,
       promotionType,
       subtotal,
-    };
-  });
+    });
+  }
 
   return purchasedItems;
 };
