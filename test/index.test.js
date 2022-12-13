@@ -59,6 +59,7 @@ describe("pos when input tags with no BUY_TWO_FREE_ONE promotions", () => {
     expect(result).toEqual(expectReceipt);
   });
 
+  // different weighting same kind tag can be added
   it("should print correct receipt when input 1 2-pounds and 1 1-pounds same weigh-in  tags", () => {
     const inputTags = ["ITEM000001-2", "ITEM000001-1"];
     const expectReceipt = `
@@ -142,6 +143,22 @@ describe("pos when input tags with BUY_TWO_FREE_ONE promotions", () => {
     名称：荔枝，数量：3斤，单价：15.00(元)，小计：30.00(元)
     ----------------------
     总计：30.00(元)
+    节省：15.00(元)
+    **********************`;
+
+    const result = printReceipt(inputTags);
+
+    expect(result).toEqual(expectReceipt);
+  });
+
+  // different weighting same kind tag can be added
+  it("should print correct receipt when input 1 1-pounds  and 1 3-pounds same item tags", () => {
+    const inputTags = ["ITEM000003-1", "ITEM000003-3"];
+    const expectReceipt = `
+    ***<没钱赚商店>收据***
+    名称：荔枝，数量：4斤，单价：15.00(元)，小计：45.00(元)
+    ----------------------
+    总计：45.00(元)
     节省：15.00(元)
     **********************`;
 
