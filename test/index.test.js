@@ -59,6 +59,22 @@ describe("pos when input tags with no BUY_TWO_FREE_ONE promotions", () => {
     expect(result).toEqual(expectReceipt);
   });
 
+  // different weighting same kind tag can be added
+  it("should print correct receipt when input 1 2-pounds and 1 1-pounds same weigh-in  tags", () => {
+    const inputTags = ["ITEM000001-2", "ITEM000001-1"];
+    const expectReceipt = `
+    ***<没钱赚商店>收据***
+    名称：苹果，数量：3斤，单价：5.50(元)，小计：16.50(元)
+    ----------------------
+    总计：16.50(元)
+    节省：0.00(元)
+    **********************`;
+
+    const result = printReceipt(inputTags);
+
+    expect(result).toEqual(expectReceipt);
+  });
+
   it("should print correct receipt when input 2 same non-weigh-in tags and 1 one-pounds weigh-in tag", () => {
     const inputTags = ["ITEM000000", "ITEM000000", "ITEM000001-1"];
     const expectReceipt = `
@@ -135,6 +151,22 @@ describe("pos when input tags with BUY_TWO_FREE_ONE promotions", () => {
     expect(result).toEqual(expectReceipt);
   });
 
+  // different weighting same kind tag can be added
+  it("should print correct receipt when input 1 1-pounds  and 1 3-pounds same item tags", () => {
+    const inputTags = ["ITEM000003-1", "ITEM000003-3"];
+    const expectReceipt = `
+    ***<没钱赚商店>收据***
+    名称：荔枝，数量：4斤，单价：15.00(元)，小计：45.00(元)
+    ----------------------
+    总计：45.00(元)
+    节省：15.00(元)
+    **********************`;
+
+    const result = printReceipt(inputTags);
+
+    expect(result).toEqual(expectReceipt);
+  });
+
   it("should print correct receipt when input 2 same non-weigh-in tags and 1 one-pounds weigh-in tag", () => {
     const inputTags = ["ITEM000002", "ITEM000002", "ITEM000003-1"];
     const expectReceipt = `
@@ -159,19 +191,21 @@ describe("pos when input all kinds tags", () => {
       "ITEM000000",
       "ITEM000000",
       "ITEM000001-1",
+      "ITEM000001-2",
       "ITEM000002",
       "ITEM000002",
       "ITEM000002",
       "ITEM000003-3",
+      "ITEM000003-1",
     ];
     const expectReceipt = `
     ***<没钱赚商店>收据***
     名称：可口可乐，数量：3瓶，单价：2.50(元)，小计：7.50(元)
-    名称：苹果，数量：1斤，单价：5.50(元)，小计：5.50(元)
+    名称：苹果，数量：3斤，单价：5.50(元)，小计：16.50(元)
     名称：雪碧，数量：3瓶，单价：3.00(元)，小计：6.00(元)
-    名称：荔枝，数量：3斤，单价：15.00(元)，小计：30.00(元)
+    名称：荔枝，数量：4斤，单价：15.00(元)，小计：45.00(元)
     ----------------------
-    总计：49.00(元)
+    总计：75.00(元)
     节省：18.00(元)
     **********************`;
 
