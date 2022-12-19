@@ -32,16 +32,17 @@ const buildReceiptItems = (cartItems, allPromotions) =>
     };
   });
 
+const getTotalPrice = (receiptItems, filed) => {
+  return receiptItems.reduce(
+    (totalPrice, currentItems) => totalPrice + currentItems[filed],
+    0
+  );
+};
+
 const buildReceipt = (receiptItems) => ({
   receiptItems,
-  totalPrice: receiptItems.reduce(
-    (totalPrice, currentItems) => totalPrice + currentItems.subtotal,
-    0
-  ),
-  totalDiscount: receiptItems.reduce(
-    (totalPrice, currentItems) => totalPrice + currentItems.discount,
-    0
-  ),
+  totalPrice: getTotalPrice(receiptItems, "subtotal"),
+  totalDiscount: getTotalPrice(receiptItems, "discount"),
 });
 
 module.exports = {
