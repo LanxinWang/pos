@@ -14,4 +14,22 @@ const buildCartItems = (cartBarcodes, allItems) =>
     ).length;
     return item;
   });
-module.exports = { getCartBarcodes, buildCartItems };
+
+const buildReceiptItems = (cartItems, allPromotions) =>
+  cartItems.map((cartItem) => {
+    const promotion = allPromotions.find((promotion) =>
+      promotion.barcodes.includes(cartItem.barcode)
+    )?.type;
+    const discount =
+      promotion === "BUY_TWO_FREE_ONE"
+        ? Math.floor(cartItem.count / 3) * cartItem.price
+        : 0;
+    const subtotal = cartItem.price * cartItem.count - discount;
+    return {
+      cartItem,
+      discount,
+      subtotal,
+    };
+  });
+
+module.exports = { getCartBarcodes, buildCartItems, buildReceiptItems };
