@@ -5,4 +5,10 @@ const getCartBarcodes = (tags) =>
       return new Array(parseInt(count)).fill(barcode);
     })
     .flat();
-module.exports = { getCartBarcodes };
+
+const buildCartItems = (cartBarcodes, allItems) => {
+  const item = allItems.find((item) => item.barcode === cartBarcodes[0]);
+  item.count = 1;
+  return [item];
+};
+module.exports = { getCartBarcodes, buildCartItems };
