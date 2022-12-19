@@ -1,3 +1,4 @@
+const { loadAllItems, loadPromotions } = require("./fixtures.js");
 const getCartBarcodes = (tags) =>
   tags
     .map((tag) => {
@@ -66,10 +67,24 @@ const formatReceipt = (receipt) => `
         节省：${receipt.totalDiscount.toFixed(2)}(元)
         **********************`;
 
+const printReceipt = (tags) => {
+  if (tags.length === 0) {
+    console.log("input is empty");
+    return;
+  }
+
+  // const cartBarcodes = getCartBarcodes(tags);
+  // const cartItems = buildCartItems(cartBarcodes, loadAllItems());
+  // const receiptItems = buildReceiptItems(cartItems, loadPromotions());
+  // const receipt = buildReceipt(receiptItems);
+  // console.log(formatReceipt(receipt));
+};
+
 module.exports = {
   getCartBarcodes,
   buildCartItems,
   buildReceiptItems,
   buildReceipt,
   formatReceipt,
+  printReceipt,
 };
