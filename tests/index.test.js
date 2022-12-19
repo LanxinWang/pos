@@ -2,6 +2,7 @@ const {
   getCartBarcodes,
   buildCartItems,
   buildReceiptItems,
+  buildReceipt,
 } = require("../src/index");
 const { loadAllItems, loadPromotions } = require("../src/fixtures.js");
 

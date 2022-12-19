@@ -32,4 +32,15 @@ const buildReceiptItems = (cartItems, allPromotions) =>
     };
   });
 
-module.exports = { getCartBarcodes, buildCartItems, buildReceiptItems };
+const buildReceipt = (receiptItems) => ({
+  receiptItems,
+  totalPrice: receiptItems[0].subtotal,
+  totalDiscount: receiptItems[0].discount,
+});
+
+module.exports = {
+  getCartBarcodes,
+  buildCartItems,
+  buildReceiptItems,
+  buildReceipt,
+};
