@@ -6,9 +6,12 @@ const getCartBarcodes = (tags) =>
     })
     .flat();
 
-const buildCartItems = (cartBarcodes, allItems) => {
-  const item = allItems.find((item) => item.barcode === cartBarcodes[0]);
-  item.count = 1;
-  return [item];
-};
+const buildCartItems = (cartBarcodes, allItems) =>
+  [...new Set(cartBarcodes)].map((cartBarcode) => {
+    const item = allItems.find((item) => item.barcode === cartBarcode);
+    item.count = cartBarcodes.filter(
+      (barcode) => barcode === cartBarcode
+    ).length;
+    return item;
+  });
 module.exports = { getCartBarcodes, buildCartItems };
