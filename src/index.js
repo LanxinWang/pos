@@ -45,9 +45,24 @@ const buildReceipt = (receiptItems) => ({
   totalDiscount: getTotalPrice(receiptItems, "discount"),
 });
 
+const formatReceipt = (receipt) => `
+        ***<没钱赚商店>收据***
+        名称：${receipt.receiptItems[0].cartItem.name}，数量：${
+  receipt.receiptItems[0].cartItem.count
+}${
+  receipt.receiptItems[0].cartItem.unit
+}，单价：${receipt.receiptItems[0].cartItem.price.toFixed(
+  2
+)}(元)，小计：${receipt.receiptItems[0].subtotal.toFixed(2)}(元)
+        ----------------------
+        总计：${receipt.totalPrice.toFixed(2)}(元)
+        节省：${receipt.totalDiscount.toFixed(2)}(元)
+        **********************`;
+
 module.exports = {
   getCartBarcodes,
   buildCartItems,
   buildReceiptItems,
   buildReceipt,
+  formatReceipt,
 };
