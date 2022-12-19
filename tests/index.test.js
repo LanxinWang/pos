@@ -242,3 +242,87 @@ describe("buildReceiptItems", () => {
     expect(result).toEqual(expectReceiptItems);
   });
 });
+
+describe("buildReceipt", () => {
+  it("should return right receipt when input a receipt item", function () {
+    const receiptItems = [
+      {
+        cartItem: {
+          barcode: "ITEM000000",
+          name: "可口可乐",
+          unit: "瓶",
+          price: 3.0,
+          count: 3,
+        },
+        discount: 3.0,
+        subtotal: 6,
+      },
+    ];
+    const expectReceipt = {
+      receiptItems,
+      totalPrice: 6,
+      totalDiscount: 3,
+    };
+
+    const result = buildReceipt(receiptItems);
+
+    expect(result).toEqual(expectReceipt);
+  });
+  // it("should return right receipt when input receipt items", function () {
+  //   const receiptItems = [
+  //     {
+  //       cartItem: {
+  //         barcode: "ITEM000000",
+  //         name: "可口可乐",
+  //         unit: "瓶",
+  //         price: 3.0,
+  //         count: 3,
+  //       },
+  //       discount: 3.0,
+  //       subtotal: 6,
+  //     },
+  //     {
+  //       cartItem: {
+  //         barcode: "ITEM000001",
+  //         name: "雪碧",
+  //         unit: "瓶",
+  //         price: 3.0,
+  //         count: 1,
+  //       },
+  //       discount: 0.0,
+  //       subtotal: 3.0,
+  //     },
+  //     {
+  //       cartItem: {
+  //         barcode: "ITEM000002",
+  //         name: "苹果",
+  //         unit: "斤",
+  //         price: 5.5,
+  //         count: 7,
+  //       },
+  //       discount: 11.0,
+  //       subtotal: 27.5,
+  //     },
+  //     {
+  //       cartItem: {
+  //         barcode: "ITEM000003",
+  //         name: "荔枝",
+  //         unit: "斤",
+  //         price: 15.0,
+  //         count: 4,
+  //       },
+  //       discount: 0.0,
+  //       subtotal: 60.0,
+  //     },
+  //   ];
+  //   const expectReceipt = {
+  //     receiptItems,
+  //     totalPrice: 96.5,
+  //     totalDiscount: 14,
+  //   };
+  //
+  //   const result = buildReceipt(receiptItems);
+  //
+  //   expect(result).toEqual(expectReceipt);
+  // });
+});
