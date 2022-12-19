@@ -4,6 +4,7 @@ const {
   buildReceiptItems,
   buildReceipt,
   formatReceipt,
+  printReceipt,
 } = require("../src/index");
 const { loadAllItems, loadPromotions } = require("../src/fixtures.js");
 
@@ -428,4 +429,74 @@ describe("formatReceipt", () => {
 
     expect(result).toEqual(expectReceipt);
   });
+});
+
+describe("printReceipt", () => {
+  beforeAll(() => {
+    jest.spyOn(console, "log");
+  });
+  it("should print empty warning when input empty tag", function () {
+    const tags = [];
+    const expectReceiptWarning = "input is empty";
+
+    printReceipt(tags);
+
+    expect(console.log).toHaveBeenCalledWith(expectReceiptWarning);
+  });
+  // it("should print receipt when input non-weighting tags", function () {
+  //   const tags = ["ITEM000000", "ITEM000000", "ITEM000000", "ITEM000001"];
+  //
+  //   const expectReceipt = `
+  //       ***<没钱赚商店>收据***
+  //       名称：可口可乐，数量：3瓶，单价：3.00(元)，小计：6.00(元)
+  //       名称：雪碧，数量：1瓶，单价：3.00(元)，小计：3.00(元)
+  //       ----------------------
+  //       总计：9.00(元)
+  //       节省：3.00(元)
+  //       **********************`;
+  //
+  //   printReceipt(tags);
+  //
+  //   expect(console.log).toHaveBeenCalledWith(expectReceipt);
+  // });
+  // it("should print receipt when input weighting tags", function () {
+  //   const tags = ["ITEM000002-7", "ITEM000003-4"];
+  //
+  //   const expectReceipt = `
+  //       ***<没钱赚商店>收据***
+  //       名称：苹果，数量：7斤，单价：5.50(元)，小计：27.50(元)
+  //       名称：荔枝，数量：4斤，单价：15.00(元)，小计：60.00(元)
+  //       ----------------------
+  //       总计：87.50(元)
+  //       节省：11.00(元)
+  //       **********************`;
+  //
+  //   printReceipt(tags);
+  //
+  //   expect(console.log).toHaveBeenCalledWith(expectReceipt);
+  // });
+  // it("should print receipt when input all kinds of tags", function () {
+  //   const tags = [
+  //     "ITEM000000",
+  //     "ITEM000000",
+  //     "ITEM000000",
+  //     "ITEM000001",
+  //     "ITEM000002-7",
+  //     "ITEM000003-4",
+  //   ];
+  //   const expectReceipt = `
+  //       ***<没钱赚商店>收据***
+  //       名称：可口可乐，数量：3瓶，单价：3.00(元)，小计：6.00(元)
+  //       名称：雪碧，数量：1瓶，单价：3.00(元)，小计：3.00(元)
+  //       名称：苹果，数量：7斤，单价：5.50(元)，小计：27.50(元)
+  //       名称：荔枝，数量：4斤，单价：15.00(元)，小计：60.00(元)
+  //       ----------------------
+  //       总计：96.50(元)
+  //       节省：14.00(元)
+  //       **********************`;
+  //
+  //   printReceipt(tags);
+  //
+  //   expect(console.log).toHaveBeenCalledWith(expectReceipt);
+  // });
 });
