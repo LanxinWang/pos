@@ -361,71 +361,71 @@ describe("formatReceipt", () => {
 
     expect(result).toEqual(expectReceipt);
   });
-  // it("should get right receipt formation when in put some receipt items", function () {
-  //   const receipt = {
-  //     receiptItems: [
-  //       {
-  //         cartItem: {
-  //           barcode: "ITEM000000",
-  //           name: "可口可乐",
-  //           unit: "瓶",
-  //           price: 3.0,
-  //           count: 3,
-  //         },
-  //         discount: 3.0,
-  //         subtotal: 6,
-  //       },
-  //       {
-  //         cartItem: {
-  //           barcode: "ITEM000001",
-  //           name: "雪碧",
-  //           unit: "瓶",
-  //           price: 3.0,
-  //           count: 1,
-  //         },
-  //         discount: 0.0,
-  //         subtotal: 3.0,
-  //       },
-  //       {
-  //         cartItem: {
-  //           barcode: "ITEM000002",
-  //           name: "苹果",
-  //           unit: "斤",
-  //           price: 5.5,
-  //           count: 7,
-  //         },
-  //         discount: 11.0,
-  //         subtotal: 27.5,
-  //       },
-  //       {
-  //         cartItem: {
-  //           barcode: "ITEM000003",
-  //           name: "荔枝",
-  //           unit: "斤",
-  //           price: 15.0,
-  //           count: 4,
-  //         },
-  //         discount: 0.0,
-  //         subtotal: 60.0,
-  //       },
-  //     ],
-  //     totalPrice: 96.5,
-  //     totalDiscount: 14,
-  //   };
-  //
-  //   const expectReceipt = `
-  //       ***<没钱赚商店>收据***
-  //       名称：可口可乐，数量：3瓶，单价：3.00(元)，小计：6.00(元)
-  //       名称：雪碧，数量：1瓶，单价：3.00(元)，小计：3.00(元)
-  //       名称：苹果，数量：7斤，单价：5.50(元)，小计：27.50(元)
-  //       名称：荔枝，数量：4斤，单价：15.00(元)，小计：60.00(元)
-  //       ----------------------
-  //       总计：96.50(元)
-  //       节省：14.00(元)
-  //       **********************`;
-  //
-  //   const result = formatReceipt(receipt);
-  //
-  //   expect(result).toEqual(expectReceipt);
-  // });
+  it("should get right receipt formation when in put some receipt items", function () {
+    const receipt = {
+      receiptItems: [
+        {
+          cartItem: {
+            barcode: "ITEM000000",
+            name: "可口可乐",
+            unit: "瓶",
+            price: 3.0,
+            count: 3,
+          },
+          discount: 3.0,
+          subtotal: 6,
+        },
+        {
+          cartItem: {
+            barcode: "ITEM000001",
+            name: "雪碧",
+            unit: "瓶",
+            price: 3.0,
+            count: 1,
+          },
+          discount: 0.0,
+          subtotal: 3.0,
+        },
+        {
+          cartItem: {
+            barcode: "ITEM000002",
+            name: "苹果",
+            unit: "斤",
+            price: 5.5,
+            count: 7,
+          },
+          discount: 11.0,
+          subtotal: 27.5,
+        },
+        {
+          cartItem: {
+            barcode: "ITEM000003",
+            name: "荔枝",
+            unit: "斤",
+            price: 15.0,
+            count: 4,
+          },
+          discount: 0.0,
+          subtotal: 60.0,
+        },
+      ],
+      totalPrice: 96.5,
+      totalDiscount: 14,
+    };
+
+    const expectReceipt = `
+        ***<没钱赚商店>收据***
+        名称：可口可乐，数量：3瓶，单价：3.00(元)，小计：6.00(元)
+        名称：雪碧，数量：1瓶，单价：3.00(元)，小计：3.00(元)
+        名称：苹果，数量：7斤，单价：5.50(元)，小计：27.50(元)
+        名称：荔枝，数量：4斤，单价：15.00(元)，小计：60.00(元)
+        ----------------------
+        总计：96.50(元)
+        节省：14.00(元)
+        **********************`;
+
+    const result = formatReceipt(receipt);
+
+    expect(result).toEqual(expectReceipt);
+  });
 });
