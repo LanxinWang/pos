@@ -34,8 +34,14 @@ const buildReceiptItems = (cartItems, allPromotions) =>
 
 const buildReceipt = (receiptItems) => ({
   receiptItems,
-  totalPrice: receiptItems[0].subtotal,
-  totalDiscount: receiptItems[0].discount,
+  totalPrice: receiptItems.reduce(
+    (totalPrice, currentItems) => totalPrice + currentItems.subtotal,
+    0
+  ),
+  totalDiscount: receiptItems.reduce(
+    (totalPrice, currentItems) => totalPrice + currentItems.discount,
+    0
+  ),
 });
 
 module.exports = {
