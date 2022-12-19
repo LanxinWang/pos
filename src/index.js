@@ -73,11 +73,11 @@ const printReceipt = (tags) => {
     return;
   }
 
-  // const cartBarcodes = getCartBarcodes(tags);
-  // const cartItems = buildCartItems(cartBarcodes, loadAllItems());
-  // const receiptItems = buildReceiptItems(cartItems, loadPromotions());
-  // const receipt = buildReceipt(receiptItems);
-  // console.log(formatReceipt(receipt));
+  const cartBarcodes = getCartBarcodes(tags);
+  const cartItems = buildCartItems(cartBarcodes, loadAllItems());
+  const receiptItems = buildReceiptItems(cartItems, loadPromotions());
+  const receipt = buildReceipt(receiptItems);
+  console.log(formatReceipt(receipt));
 };
 
 module.exports = {
