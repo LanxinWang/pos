@@ -46,39 +46,39 @@ describe("buildCartItems", () => {
 
     expect(result).toEqual(expectCartItems);
   });
-  // it("should return right build cart items when input cartBarcodes", function () {
-  //   const allItems = loadAllItems();
-  //   const cartBarcodes = [
-  //     "ITEM000000",
-  //     "ITEM000000",
-  //     "ITEM000001",
-  //     "ITEM000002",
-  //     "ITEM000003",
-  //     "ITEM000003",
-  //     "ITEM000003",
-  //     "ITEM000003",
-  //   ];
-  //   const expectCartItems = [
-  //     {
-  //       barcode: "ITEM000000",
-  //       name: "可口可乐",
-  //       unit: "瓶",
-  //       price: 3.0,
-  //       count: 2,
-  //     },
-  //     { barcode: "ITEM000001", name: "雪碧", unit: "瓶", price: 3.0, count: 1 },
-  //     { barcode: "ITEM000002", name: "苹果", unit: "斤", price: 5.5, count: 1 },
-  //     {
-  //       barcode: "ITEM000003",
-  //       name: "荔枝",
-  //       unit: "斤",
-  //       price: 15.0,
-  //       count: 4,
-  //     },
-  //   ];
-  //
-  //   const result = buildCartItems(cartBarcodes, allItems);
-  //
-  //   expect(result).toEqual(expectCartItems);
-  // });
+  it("should return right build cart items when input cartBarcodes", function () {
+    const allItems = loadAllItems();
+    const cartBarcodes = [
+      "ITEM000000",
+      "ITEM000000",
+      "ITEM000001",
+      "ITEM000002",
+      "ITEM000003",
+      "ITEM000003",
+      "ITEM000003",
+      "ITEM000003",
+    ];
+    const expectCartItems = [
+      {
+        barcode: "ITEM000000",
+        name: "可口可乐",
+        unit: "瓶",
+        price: 3.0,
+        count: 2,
+      },
+      { barcode: "ITEM000001", name: "雪碧", unit: "瓶", price: 3.0, count: 1 },
+      { barcode: "ITEM000002", name: "苹果", unit: "斤", price: 5.5, count: 1 },
+      {
+        barcode: "ITEM000003",
+        name: "荔枝",
+        unit: "斤",
+        price: 15.0,
+        count: 4,
+      },
+    ];
+
+    const result = buildCartItems(cartBarcodes, allItems);
+
+    expect(result).toEqual(expectCartItems);
+  });
 });
